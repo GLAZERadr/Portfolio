@@ -32,8 +32,8 @@ const TextType: React.FC<TextTypeProps> = ({
     if (!textRef.current || text.length === 0) return;
 
     const tl = gsap.timeline({
+      repeat: -1, // Infinite loop
       onComplete: () => {
-        setIsComplete(true);
         onComplete?.();
       },
     });
@@ -73,24 +73,27 @@ const TextType: React.FC<TextTypeProps> = ({
       }
 
       // Pause at end of sentence
+      tl.to({}, { duration: pauseDuration / 1000 });
+
+      // Erase text (including last sentence for infinite loop)
+      for (let i = sentence.length; i >= 0; i--) {
+        tl.to(
+          {},
+          {
+            duration: (typingSpeed * 0.5) / 1000, // Erasing is faster
+            onStart: () => {
+              setCurrentText(sentence.slice(0, i));
+            },
+          }
+        );
+      }
+
+      // Pause before next sentence (or loop restart)
       if (!isLastSentence) {
-        tl.to({}, { duration: pauseDuration / 1000 });
-
-        // Erase text (except for last sentence)
-        for (let i = sentence.length; i >= 0; i--) {
-          tl.to(
-            {},
-            {
-              duration: (typingSpeed * 0.5) / 1000, // Erasing is faster
-              onStart: () => {
-                setCurrentText(sentence.slice(0, i));
-              },
-            }
-          );
-        }
-
-        // Pause before next sentence
         tl.to({}, { duration: 0.3 });
+      } else {
+        // Longer pause before restarting the loop
+        tl.to({}, { duration: 1.0 });
       }
     });
 
@@ -101,13 +104,7 @@ const TextType: React.FC<TextTypeProps> = ({
     };
   }, [text, typingSpeed, pauseDuration, showCursor, onComplete]);
 
-  // Stop cursor blinking when typing is complete
-  useEffect(() => {
-    if (isComplete && cursorRef.current) {
-      gsap.killTweensOf(cursorRef.current);
-      gsap.set(cursorRef.current, { opacity: 0 });
-    }
-  }, [isComplete]);
+  // Keep cursor blinking for infinite loop (remove completion check)
 
   return (
     <span className={`inline-block ${className}`}>
