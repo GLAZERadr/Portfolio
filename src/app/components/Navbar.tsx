@@ -64,15 +64,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <MicroAnimations type="glow" intensity="medium">
-            <motion.div
-              className="text-2xl font-bold gradient-text cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              onClick={() => scrollToSection('hero')}
-            >
-              Hi, There!
-            </motion.div>
-          </MicroAnimations>
+          <motion.div
+            className="text-2xl font-bold gradient-text cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            onClick={() => scrollToSection('hero')}
+          >
+            Hello World
+          </motion.div>
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-8">

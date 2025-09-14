@@ -14,7 +14,18 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center section-bg relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Consistent layered background with depth - same as other sections */}
+      <div className="absolute inset-0">
+        {/* Base dark gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-night-blue-dark/80 via-primary-black to-night-blue-dark/80"></div>
+        
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-accent-blue/12 to-purple-500/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-r from-pink-500/8 to-accent-blue/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
+
       {/* Dynamic Dot Grid Background */}
       <div className="absolute inset-0 w-full h-full">
         <DotGrid
@@ -27,34 +38,6 @@ const Hero = () => {
           shockStrength={12}
           resistance={600}
           returnDuration={1.8}
-        />
-      </div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-accent-blue/10 to-purple-500/10 blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute top-3/4 right-1/4 w-48 h-48 rounded-full bg-gradient-to-r from-purple-500/10 to-accent-blue/10 blur-3xl"
-          animate={{
-            x: [0, -120, 0],
-            y: [0, 80, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
       </div>
 

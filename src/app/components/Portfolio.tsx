@@ -89,7 +89,19 @@ const Portfolio = () => {
     : projects.filter(project => project.category === filter);
 
   return (
-    <section id="portfolio" className="py-20 bg-primary-black">
+    <section id="portfolio" className="py-20 relative overflow-hidden">
+      {/* Consistent layered background with depth */}
+      <div className="absolute inset-0">
+        {/* Base dark gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-night-blue-dark/80 via-primary-black to-night-blue-dark/80"></div>
+        
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-accent-blue/12 to-purple-500/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-r from-pink-500/8 to-accent-blue/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
+      
+      <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -259,6 +271,7 @@ const Portfolio = () => {
             </Button>
           </div>
         </motion.div>
+      </div>
       </div>
     </section>
   );

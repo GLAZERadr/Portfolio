@@ -6,49 +6,51 @@ import DotGrid from './animations/DotGrid';
 const Experience = () => {
   const experiences = [
     {
-      year: '2024',
-      title: 'Senior Full-Stack Developer',
-      company: 'Web3 Startup',
-      description: 'Leading development of DeFi protocols and smart contracts. Built scalable React applications with Web3 integration.',
-      technologies: ['React', 'Solidity', 'Web3.js', 'Node.js', 'TypeScript'],
+      year: '2024 - Present',
+      title: 'Co-founder and Chief Executive Officer',
+      company: 'ADA4Career',
+      description: 'Spearheaded launch and UX validation of closed beta with 20+ users, testing personalized CV optimization, job-matching algorithms, and AIDA chat features. Led ADA4Career to international recognition—Top 17 Microsoft Imagine Cup Semifinalist and Most Honorable Team awardee.',
+      technologies: ['AI/ML', 'Python', 'Azure', 'AWS', 'Leadership', 'Strategy'],
       type: 'work'
     },
     {
-      year: '2023',
-      title: 'Frontend Lead',
-      company: 'TechCorp Solutions',
-      description: 'Managed a team of 5 developers building enterprise SaaS applications. Implemented modern CI/CD pipelines.',
-      technologies: ['Next.js', 'React', 'TypeScript', 'TailwindCSS', 'Docker'],
+      year: '2024 - 2025',
+      title: 'Full-Stack 3D Web Developer',
+      company: 'PT Indonesia Asahan Aluminium (Inalum)',
+      description: 'Developed interactive 3D web applications and immersive user experiences. Built full-stack solutions integrating 3D visualization with backend data systems for industrial applications.',
+      technologies: ['JavaScript', 'Three.js', 'WebGL', 'React', 'Node.js', '3D Graphics'],
       type: 'work'
     },
     {
-      year: '2022',
-      title: 'Full-Stack Developer',
-      company: 'Digital Agency',
-      description: 'Developed custom web applications for various clients. Specialized in e-commerce and content management systems.',
-      technologies: ['React', 'Python', 'Django', 'PostgreSQL', 'AWS'],
+      year: '2024 - 2025',
+      title: 'Database Specialist',
+      company: 'Siemens Healthineers',
+      description: 'Built dashboards with 3 key tabs and engineer profile cards, improving task distribution efficiency by 25%. Analyzed 4 datasets (60,000+ rows, 15+ columns) to assess performance of 20+ field engineers across 200+ service notifications.',
+      technologies: ['Python', 'SQL', 'Tableau', 'Data Analysis', 'Dashboard Development'],
       type: 'work'
     },
     {
-      year: '2021',
-      title: 'Blockchain Development Certification',
-      company: 'ConsenSys Academy',
-      description: 'Completed comprehensive blockchain development program focusing on Ethereum and smart contract development.',
-      technologies: ['Solidity', 'Truffle', 'Web3', 'Ethereum', 'DeFi'],
+      year: '2021 - 2025',
+      title: 'Bachelor of Data Science',
+      company: 'Telkom University',
+      description: 'Graduated with GPA: 3.7, specializing in data science, machine learning, and statistical analysis. Built strong foundation in data engineering and AI/ML technologies.',
+      technologies: ['Data Science', 'Machine Learning', 'Statistics', 'Python', 'Research'],
       type: 'education'
-    },
-    {
-      year: '2020',
-      title: 'Junior Developer',
-      company: 'StartupXYZ',
-      description: 'Started my journey in web development. Worked on various frontend projects and learned modern development practices.',
-      technologies: ['JavaScript', 'React', 'HTML/CSS', 'Node.js', 'MongoDB'],
-      type: 'work'
-    },
+    }
   ];
 
   return (
-    <section id="experience" className="py-20 card-bg relative overflow-hidden">
+    <section id="experience" className="py-20 relative overflow-hidden">
+      {/* Layered background with depth */}
+      <div className="absolute inset-0">
+        {/* Base dark gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-night-blue-dark/80 via-primary-black to-night-blue-dark/80"></div>
+        
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-accent-blue/12 to-purple-500/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-r from-pink-500/8 to-accent-blue/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
       {/* Dynamic Dot Grid Background */}
       <div className="absolute inset-0 w-full h-full opacity-60">
         <DotGrid
@@ -173,17 +175,102 @@ const Experience = () => {
             I&apos;m always excited to work on innovative projects that push the boundaries 
             of technology and create meaningful impact.
           </p>
-          <motion.button
-            className="px-8 py-3 glass-effect text-text-light font-medium rounded-2xl hover:border-accent-blue transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+          <motion.div
+            className="relative group cursor-pointer inline-block"
+            initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
+            whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              type: "spring",
+              stiffness: 100
+            }}
+            whileHover={{ 
+              scale: 1.1, 
+              y: -8,
+              rotateX: 5,
+              transition: { duration: 0.2 }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              rotateZ: -2
+            }}
+            viewport={{ once: true }}
             onClick={() => {
               const element = document.getElementById('contact');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            Let&apos;s Work Together
-          </motion.button>
+            {/* Main button */}
+            <motion.div
+              className="relative px-8 py-4 glass-effect rounded-2xl text-lg font-semibold text-text-light border border-transparent overflow-hidden"
+              whileHover={{
+                borderColor: '#5227FF',
+                color: '#5227FF',
+                boxShadow: '0 0 30px #5227FF40'
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Animated background gradient */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-accent-blue/20 to-purple-500/20 opacity-0 group-hover:opacity-100"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full"
+                animate={{
+                  translateX: ['100%', '-100%']
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "linear"
+                }}
+              />
+              
+              {/* Floating particles on hover */}
+              <motion.div
+                className="absolute -top-1 -right-1 w-2 h-2 bg-accent-blue rounded-full opacity-0 group-hover:opacity-100"
+                animate={{
+                  y: [0, -12, 0],
+                  x: [0, 6, 0],
+                  scale: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  delay: 0.2
+                }}
+              />
+              <motion.div
+                className="absolute -bottom-1 -left-1 w-2 h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100"
+                animate={{
+                  y: [0, 12, 0],
+                  x: [0, -6, 0],
+                  scale: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  delay: 0.4
+                }}
+              />
+              
+              {/* Text with sparkle effect */}
+              <motion.span 
+                className="relative z-10 flex items-center gap-2"
+                whileHover={{ 
+                  textShadow: '0 0 10px #5227FF' 
+                }}
+              >
+                Let&apos;s Work Together
+              </motion.span>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

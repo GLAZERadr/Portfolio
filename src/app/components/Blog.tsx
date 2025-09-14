@@ -50,7 +50,18 @@ const Blog = () => {
   };
 
   return (
-    <section id="blog" className="py-20 card-bg relative overflow-hidden">
+    <section id="blog" className="py-20 relative overflow-hidden">
+      {/* Layered background with depth - same as Experience section */}
+      <div className="absolute inset-0">
+        {/* Base dark gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-night-blue-dark/80 via-primary-black to-night-blue-dark/80"></div>
+        
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-accent-blue/12 to-purple-500/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-r from-pink-500/8 to-accent-blue/6 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
+      
       {/* Dynamic Dot Grid Background */}
       <div className="absolute inset-0 w-full h-full opacity-50">
         <DotGrid
@@ -237,13 +248,98 @@ const Blog = () => {
           viewport={{ once: true }}
         >
           <Link href="/blog">
-            <motion.button
-              className="px-8 py-3 glass-effect text-text-light font-medium rounded-2xl hover:border-accent-blue transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+            <motion.div
+              className="relative group cursor-pointer inline-block"
+              initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ 
+                scale: 1.1, 
+                y: -8,
+                rotateX: 5,
+                transition: { duration: 0.2 }
+              }}
+              whileTap={{ 
+                scale: 0.95,
+                rotateZ: -2
+              }}
+              viewport={{ once: true }}
             >
-              View All Posts
-            </motion.button>
+              {/* Main button */}
+              <motion.div
+                className="relative px-8 py-4 glass-effect rounded-2xl text-lg font-semibold text-text-light border border-transparent overflow-hidden"
+                whileHover={{
+                  borderColor: '#7c3aed',
+                  color: '#7c3aed',
+                  boxShadow: '0 0 30px #7c3aed40'
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Animated background gradient */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full"
+                  animate={{
+                    translateX: ['100%', '-100%']
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatDelay: 3,
+                    ease: "linear"
+                  }}
+                />
+                
+                {/* Floating particles on hover */}
+                <motion.div
+                  className="absolute -top-1 -right-1 w-2 h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100"
+                  animate={{
+                    y: [0, -12, 0],
+                    x: [0, 6, 0],
+                    scale: [0, 1, 0]
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: 0.2
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-500 rounded-full opacity-0 group-hover:opacity-100"
+                  animate={{
+                    y: [0, 12, 0],
+                    x: [0, -6, 0],
+                    scale: [0, 1, 0]
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: 0.4
+                  }}
+                />
+                
+                {/* Text with reading icon effect */}
+                <motion.span 
+                  className="relative z-10 flex items-center gap-2"
+                  whileHover={{ 
+                    textShadow: '0 0 10px #7c3aed' 
+                  }}
+                >
+                  View All Posts
+                </motion.span>
+              </motion.div>
+            </motion.div>
           </Link>
         </motion.div>
       </div>
