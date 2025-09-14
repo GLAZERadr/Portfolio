@@ -36,9 +36,25 @@ const Navbar = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Calculate the offset for fixed navbar (64px height + some padding)
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      // Use both methods for better mobile compatibility
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Fallback for older mobile browsers
+      setTimeout(() => {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
     }
-    setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
   const navItems = [
@@ -130,7 +146,10 @@ const Navbar = () => {
                 }`}
                 whileHover={{ x: 5 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => {
+                  scrollToSection(item.id);
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 {item.label}
               </motion.button>
