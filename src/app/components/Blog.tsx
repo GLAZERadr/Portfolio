@@ -1,43 +1,105 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Link from 'next/link';
 import DotGrid from './animations/DotGrid';
 
 const Blog = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) {
+      setMessage('Please enter your email address');
+      setSubmitStatus('error');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setMessage('Please enter a valid email address');
+      setSubmitStatus('error');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Call our API route
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+
+      setSubmitStatus('success');
+      setMessage(data.message || 'Thank you for subscribing! Check your email for confirmation.');
+      setEmail('');
+    } catch (error) {
+      setSubmitStatus('error');
+      setMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+
+      // Clear message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setMessage('');
+      }, 5000);
+    }
+  };
+
   const blogPosts = [
     {
-      id: 'web3-development-guide',
-      title: 'The Complete Guide to Web3 Development in 2024',
-      excerpt: 'Explore the latest trends, tools, and best practices for building decentralized applications in the rapidly evolving Web3 ecosystem.',
+      id: 'transformer-architecture-evolution',
+      title: 'The Evolution of Transformer Architecture: From Attention to Multi-Modal AI',
+      excerpt: 'Exploring how transformer models have evolved from language processing to powering vision, audio, and multi-modal AI systems, revolutionizing machine learning research.',
       date: '2024-01-15',
       readTime: '8 min read',
-      tags: ['Web3', 'Blockchain', 'DeFi', 'Smart Contracts'],
+      tags: ['Transformers', 'Deep Learning', 'Multi-Modal AI', 'Research'],
       featured: true
     },
     {
-      id: 'react-performance-optimization',
-      title: 'Advanced React Performance Optimization Techniques',
-      excerpt: 'Learn how to optimize your React applications for better performance with advanced techniques like memoization, code splitting, and lazy loading.',
+      id: 'llm-reasoning-capabilities',
+      title: 'Understanding Emergent Reasoning in Large Language Models',
+      excerpt: 'Research insights into how large language models develop reasoning capabilities and the implications for artificial general intelligence development.',
       date: '2024-01-10',
       readTime: '6 min read',
-      tags: ['React', 'Performance', 'JavaScript', 'Optimization']
+      tags: ['LLM', 'Reasoning', 'AGI', 'Cognitive Science']
     },
     {
-      id: 'solidity-security-patterns',
-      title: 'Essential Security Patterns for Solidity Smart Contracts',
-      excerpt: 'Discover critical security patterns and best practices to write secure smart contracts and avoid common vulnerabilities.',
+      id: 'federated-learning-privacy',
+      title: 'Federated Learning: Balancing AI Innovation with Data Privacy',
+      excerpt: 'Examining how federated learning enables collaborative AI model training while preserving privacy, and its applications in healthcare and finance.',
       date: '2024-01-05',
       readTime: '10 min read',
-      tags: ['Solidity', 'Security', 'Smart Contracts', 'Best Practices']
+      tags: ['Federated Learning', 'Privacy', 'Healthcare AI', 'Research']
     },
     {
-      id: 'nextjs-13-features',
-      title: 'Exploring Next.js 13: App Directory and Server Components',
-      excerpt: 'Deep dive into Next.js 13\'s revolutionary app directory and server components, and how they change the way we build React applications.',
+      id: 'neural-scaling-laws',
+      title: 'Neural Scaling Laws: What We\'ve Learned About Model Size and Performance',
+      excerpt: 'Analysis of recent research on scaling laws in neural networks and their implications for future AI development and computational efficiency.',
       date: '2023-12-28',
       readTime: '7 min read',
-      tags: ['Next.js', 'React', 'Server Components', 'App Directory']
+      tags: ['Scaling Laws', 'Neural Networks', 'Efficiency', 'Research']
     }
   ];
 
@@ -89,7 +151,7 @@ const Blog = () => {
             Latest Insights
           </h2>
           <p className="text-text-gray text-lg max-w-2xl mx-auto">
-            Sharing knowledge and insights about web development, blockchain, and emerging technologies
+            Sharing research insights and discoveries in artificial intelligence, machine learning, and emerging AI technologies
           </p>
         </motion.div>
 
@@ -220,22 +282,62 @@ const Blog = () => {
               Stay Updated
             </h3>
             <p className="text-text-gray mb-6">
-              Get the latest insights on web development, blockchain, and tech trends delivered to your inbox.
+              Get the latest insights on AI research, machine learning breakthroughs, and emerging technologies delivered to your inbox.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-night-blue-light/50 text-text-light placeholder-text-gray rounded-xl border border-transparent focus:border-accent-blue outline-none transition-all duration-300"
-              />
-              <motion.button
-                className="px-6 py-3 bg-accent-blue text-white font-medium rounded-xl hover:bg-opacity-90 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Subscribe
-              </motion.button>
-            </div>
+            <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  disabled={isSubmitting}
+                  className={`flex-1 px-4 py-3 bg-night-blue-light/50 text-text-light placeholder-text-gray rounded-xl border outline-none transition-all duration-300 ${
+                    submitStatus === 'error' && message
+                      ? 'border-red-500 focus:border-red-500'
+                      : submitStatus === 'success'
+                      ? 'border-green-500 focus:border-green-500'
+                      : 'border-transparent focus:border-accent-blue'
+                  } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                />
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`px-6 py-3 font-medium rounded-xl transition-all duration-300 ${
+                    isSubmitting
+                      ? 'bg-accent-blue/50 text-white cursor-not-allowed'
+                      : 'bg-accent-blue text-white hover:bg-opacity-90'
+                  }`}
+                  whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Subscribing...</span>
+                    </div>
+                  ) : (
+                    'Subscribe'
+                  )}
+                </motion.button>
+              </div>
+
+              {/* Status Message */}
+              {message && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className={`mt-4 p-3 rounded-lg text-sm text-center ${
+                    submitStatus === 'success'
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                  }`}
+                >
+                  {message}
+                </motion.div>
+              )}
+            </form>
           </div>
         </motion.div>
 

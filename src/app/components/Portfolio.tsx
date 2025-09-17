@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import MicroAnimations from './animations/MicroAnimations';
 import Button from './animations/Button';
 
@@ -11,82 +13,82 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: 'DeFi Trading Platform',
-      description: 'A decentralized trading platform built with React and Web3 integration. Features real-time price feeds and smart contract interactions.',
-      image: '/api/placeholder/400/300',
-      tags: ['React', 'Web3', 'Solidity', 'TypeScript'],
-      category: 'web3',
-      demoUrl: '#',
+      title: 'ADA4Career',
+      description: 'An AI-powered career platform that matches job seekers with opportunities and guides their career journey.',
+      image: '/img/ADA4Career.png',
+      tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'TailwindCSS', 'LangChain', 'OpenAI'],
+      category: 'AIaaS',
+      demoUrl: 'https://ada4career.com/',
       githubUrl: '#',
       featured: true
     },
     {
       id: 2,
-      title: 'NFT Marketplace',
-      description: 'Full-stack marketplace for creating, buying, and selling NFTs. Built with Next.js and integrated with IPFS for metadata storage.',
-      image: '/api/placeholder/400/300',
-      tags: ['Next.js', 'IPFS', 'Smart Contracts', 'TailwindCSS'],
-      category: 'web3',
-      demoUrl: '#',
-      githubUrl: '#',
+      title: 'Chronicles',
+      description: 'A web platform that uses Generative AI and Stable Diffusion to make English learning more creative, visual, and collaborative.',
+      image: '/img/Chronicles.png',
+      tags: ['Next.js', 'Python', 'Go', 'Flask', 'Fiber', 'LangChain', 'Llama 3.1'],
+      category: 'AIaaS',
+      demoUrl: 'https://chronicles-learn.netlify.app/',
+      githubUrl: 'https://github.com/GLAZERadr/Chronicles-API.git',
       featured: true
     },
     {
       id: 3,
-      title: 'E-commerce Dashboard',
-      description: 'Modern admin dashboard for e-commerce management with real-time analytics, inventory tracking, and order management.',
-      image: '/api/placeholder/400/300',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Charts.js'],
+      title: 'Inalum Daily Operation Information System',
+      description: ' A Laravel-based web application designed to support daily operational activities at Inalum.',
+      image: '/img/Inalum-DAOS.png',
+      tags: ['Laravel', 'PHP', 'MySQL', 'Node.js', 'TailwindCSS'],
       category: 'web',
-      demoUrl: '#',
-      githubUrl: '#',
+      demoUrl: 'https://inalum-daily-operation-information.vercel.app/login',
+      githubUrl: 'https://github.com/GLAZERadr/Inalum-Daily-Operation-Information-System.git',
       featured: false
     },
     {
       id: 4,
-      title: 'AI-Powered Chat App',
-      description: 'Real-time chat application with AI integration for smart responses and sentiment analysis.',
+      title: 'Inalum Material Management System',
+      description: 'A Laravel-based web application designed to support material management.',
       image: '/api/placeholder/400/300',
-      tags: ['React', 'Socket.io', 'OpenAI', 'MongoDB'],
+      tags: ['Laravel', 'PHP', 'MySQL', 'Node.js', 'TailwindCSS'],
       category: 'web',
       demoUrl: '#',
-      githubUrl: '#',
+      githubUrl: 'https://github.com/GLAZERadr/Material-Management-System.git',
       featured: false
     },
     {
       id: 5,
-      title: 'Smart Contract Auditor',
-      description: 'Tool for analyzing and auditing smart contracts for common vulnerabilities and gas optimization.',
-      image: '/api/placeholder/400/300',
-      tags: ['Python', 'Solidity', 'Security', 'Analysis'],
-      category: 'tools',
+      title: 'Telkom University FRI Asset Management System',
+      description: 'A Laravel-based web application designed to manage asset in Fakultas Rekayasa Industri.',
+      image: '/img/FRI-Asset.png',
+      tags: ['Laravel', 'PHP', 'MySQL', 'Node.js', 'TailwindCSS'],
+      category: 'web',
       demoUrl: '#',
-      githubUrl: '#',
+      githubUrl: 'https://github.com/GLAZERadr/FRI-Asset-Management-System.git',
       featured: false
     },
     {
       id: 6,
-      title: 'Web3 Authentication System',
-      description: 'Decentralized authentication system using wallet signatures and JWT tokens for secure user management.',
+      title: 'DLP Security System Using Regex',
+      description: 'A data loss prevention tool that detects and blocks sensitive information by applying regular expressions to identify patterns.',
       image: '/api/placeholder/400/300',
-      tags: ['Web3', 'Authentication', 'JWT', 'React'],
-      category: 'web3',
+      tags: ['Python', 'HTML', 'CSS', 'PyTesseract', 'Cryptography'],
+      category: 'tools',
       demoUrl: '#',
-      githubUrl: '#',
+      githubUrl: 'https://github.com/GLAZERadr/DLP-Security-System-Using-Regex.git',
       featured: false
     }
   ];
 
   const filters = [
     { id: 'all', label: 'All Projects' },
-    { id: 'web3', label: 'Web3 & Blockchain' },
+    { id: 'AIaaS', label: 'AI as a Services' },
     { id: 'web', label: 'Web Applications' },
     { id: 'tools', label: 'Tools & Utilities' }
   ];
 
-  const filteredProjects = filter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === filter);
+  const filteredProjects = filter === 'all'
+    ? projects.slice(0, 6)
+    : projects.filter(project => project.category === filter).slice(0, 6);
 
   return (
     <section id="portfolio" className="py-20 relative overflow-hidden">
@@ -118,29 +120,80 @@ const Portfolio = () => {
           </p>
         </motion.div>
 
-        {/* Filter Buttons */}
+        {/* Filter Buttons and View All Projects */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {filters.map((filterOption) => (
-            <motion.button
-              key={filterOption.id}
-              className={`px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
-                filter === filterOption.id
-                  ? 'bg-accent-blue text-white glow-effect'
-                  : 'glass-effect text-text-gray hover:text-text-light hover:border-accent-blue'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setFilter(filterOption.id)}
-            >
-              {filterOption.label}
-            </motion.button>
-          ))}
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            {filters.map((filterOption) => (
+              <motion.button
+                key={filterOption.id}
+                className={`px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                  filter === filterOption.id
+                    ? 'bg-accent-blue text-white glow-effect'
+                    : 'glass-effect text-text-gray hover:text-text-light hover:border-accent-blue'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setFilter(filterOption.id)}
+              >
+                {filterOption.label}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* View All Projects Link */}
+          <div className="flex justify-center lg:justify-end">
+            <Link href="/portfolio">
+              <motion.div
+                className="relative group cursor-pointer inline-block"
+                whileHover={{
+                  scale: 1.05,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{
+                  scale: 0.95
+                }}
+              >
+                <motion.div
+                  className="relative px-6 py-3 glass-effect rounded-2xl text-sm font-semibold text-text-light border border-transparent overflow-hidden"
+                  whileHover={{
+                    borderColor: '#4c6ef5',
+                    color: '#4c6ef5',
+                    boxShadow: '0 0 20px #4c6ef540'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Animated background gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-accent-blue/20 to-purple-500/20 opacity-0 group-hover:opacity-100"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+
+                  {/* Text with icon */}
+                  <motion.span
+                    className="relative z-10 flex items-center gap-2"
+                  >
+                    View All Projects
+                    <motion.span
+                      className="inline-block"
+                      whileHover={{ x: 3 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      →
+                    </motion.span>
+                  </motion.span>
+                </motion.div>
+              </motion.div>
+            </Link>
+          </div>
         </motion.div>
 
         {/* Projects Grid */}
@@ -166,35 +219,52 @@ const Portfolio = () => {
               >
               {/* Project Image */}
               <div className="relative h-48 md:h-56 bg-gradient-to-br from-night-blue to-night-blue-dark overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl gradient-text font-bold opacity-50">
-                    {project.title.split(' ').map(word => word[0]).join('').slice(0, 2)}
+                {project.image.startsWith('/img/') ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-6xl gradient-text font-bold opacity-50">
+                      {project.title.split(' ').map(word => word[0]).join('').slice(0, 2)}
+                    </div>
                   </div>
-                </div>
+                )}
                 {/* Featured Badge */}
                 {project.featured && (
                   <div className="absolute top-4 left-4 px-3 py-1 bg-accent-blue text-white text-xs font-semibold rounded-full">
                     Featured
                   </div>
                 )}
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                  <motion.a
-                    href={project.demoUrl}
-                    className="px-4 py-2 bg-accent-blue text-white rounded-lg font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    View Demo
-                  </motion.a>
-                  <motion.a
-                    href={project.githubUrl}
-                    className="px-4 py-2 glass-effect text-text-light rounded-lg font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    GitHub
-                  </motion.a>
+                {/* Hover Overlay - Show project details */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="text-accent-blue text-sm font-semibold mb-1">
+                      {project.category === 'AIaaS' ? 'AI as a Service' :
+                       project.category === 'web' ? 'Web Application' :
+                       project.category === 'tools' ? 'Tool & Utility' : project.category}
+                    </div>
+                    <div className="text-white font-bold text-lg mb-2">{project.title}</div>
+                    <div className="flex flex-wrap gap-1">
+                      {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="px-2 py-1 bg-accent-blue/20 text-white text-xs rounded border border-accent-blue/30"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {project.tags.length > 3 && (
+                        <span className="px-2 py-1 bg-gray-600/50 text-white text-xs rounded">
+                          +{project.tags.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 

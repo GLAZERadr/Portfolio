@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MicroAnimations from './animations/MicroAnimations';
 
@@ -81,11 +82,18 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
-            className="text-2xl font-bold gradient-text cursor-pointer"
+            className="cursor-pointer"
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('hero')}
           >
-            Hello World
+            <Image 
+              src="/logo.png" 
+              alt="Your Logo" 
+              width={120}
+              height={32}
+              className="h-16 w-auto"
+              priority 
+            />
           </motion.div>
 
           {/* Navigation Links */}

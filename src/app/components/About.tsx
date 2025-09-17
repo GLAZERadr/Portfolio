@@ -13,10 +13,10 @@ const About = () => {
     { name: 'Go', color: '#00ADD8', bgColor: 'from-cyan-400/20 to-blue-500/20' },
     
     // Frameworks
-    { name: 'Flask', color: '#000000', bgColor: 'from-gray-700/20 to-gray-900/20' },
+    { name: 'Flask', color: '#808080', bgColor: 'from-gray-700/20 to-gray-900/20' },
     { name: 'Django', color: '#092E20', bgColor: 'from-green-800/20 to-gray-800/20' },
     { name: 'Fiber', color: '#00D9FF', bgColor: 'from-cyan-400/20 to-cyan-600/20' },
-    { name: 'Express', color: '#000000', bgColor: 'from-gray-600/20 to-gray-800/20' },
+    { name: 'Express', color: '#808080', bgColor: 'from-gray-600/20 to-gray-800/20' },
     
     // Databases
     { name: 'MySQL', color: '#4479A1', bgColor: 'from-blue-600/20 to-orange-400/20' },
@@ -29,7 +29,7 @@ const About = () => {
     { name: 'Azure', color: '#0078D4', bgColor: 'from-blue-500/20 to-blue-700/20' },
     { name: 'AWS', color: '#FF9900', bgColor: 'from-orange-400/20 to-orange-600/20' },
     { name: 'Git', color: '#F05032', bgColor: 'from-orange-500/20 to-red-500/20' },
-    { name: 'GitHub', color: '#181717', bgColor: 'from-gray-700/20 to-gray-900/20' },
+    { name: 'GitHub', color: '#808080', bgColor: 'from-gray-700/20 to-gray-900/20' },
     { name: 'VSCode', color: '#007ACC', bgColor: 'from-blue-600/20 to-blue-800/20' },
     { name: 'Tableau', color: '#E97627', bgColor: 'from-orange-500/20 to-blue-600/20' },
     { name: 'Hadoop', color: '#FF9900', bgColor: 'from-yellow-500/20 to-orange-600/20' },
