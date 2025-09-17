@@ -26,7 +26,6 @@ const TextType: React.FC<TextTypeProps> = ({
   const cursorRef = useRef<HTMLSpanElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | undefined>(undefined);
   const [currentText, setCurrentText] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (!textRef.current || text.length === 0) return;

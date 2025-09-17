@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import DotGrid from '../components/animations/DotGrid';
 import MicroAnimations from '../components/animations/MicroAnimations';
 
